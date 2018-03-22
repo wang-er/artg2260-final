@@ -49,7 +49,7 @@ function draw() {
   noStroke();
   textSize(24);
   textAlign(CENTER);
-  text('Drag a csv file onto the canvas.', widthy/2, heighty/2);
+  text('Drag a Sleep Cycle csv file onto the canvas.', widthy/2, heighty/2);
   noLoop();
 }
 
@@ -148,26 +148,32 @@ for(var i = 0; i < sleepLength.length; i++) {
   sleepLength[i] = parseFloat(sleepLength[i][0]) * 60 + parseFloat(sleepLength[i][1]);
 }
 
-
-  var barWidth =  (widthy / sleepQuality.length); // width of bar
-  
-  //textSize(14);
-
+ 
+ // a little bonus thing I wanted to implement. I wanted to find the minumum and maximums of both data lists.
+ //So I declared variables and used math.max to find the numbers.
   var sleepQualityMax = Math.max(...sleepQuality);
   var sleepQualityMin = Math.min(...sleepQuality);
 
-  
   var sleepLengthMax = Math.max(...sleepLength);
   var sleepLengthMin = Math.min(...sleepLength);
 
 
-//sleep length blue
+  // next off for the bar width, we would want to have all the data be displayed on one screen right?
+  // All you would do is divide the width with the number of data points you have
+  var barWidth =  (widthy / sleepQuality.length);
+  
+
+
+//sleep length display
+//we can finally display our sleep length data in a bar graph!
   for(var i = 0; i< sleepLength.length; i++) {
     push();
-    fill(0, 0, 255, 255);
+    fill(0, 0, 255, 255); //making the color blue and slightly transparent 
     noStroke();
     translate(i * (barWidth) , heighty-map(sleepLength[i], sleepLengthMin, sleepLengthMax, 10, 600)); // jump to the top right corner of the bar
     rect(0, 0, barWidth, map(sleepLength[i], sleepLengthMin, sleepLengthMax, 10, 600)); // draw rect
+    //I used a map function above to also determine a good range to display the bars on the screen. 
+    //Rather than having numbers go from 500 to say 1000, numbers will only go from 10 to 600.
 
     //fill('#FFF');
     //text(sleepQuality[i], 5, barWidth/2 + 5); // write data
@@ -178,10 +184,10 @@ for(var i = 0; i < sleepLength.length; i++) {
 
 
   
-  //sleep quality
+  //same idea goes for sleep quality.
   for(var i = 0; i< sleepQuality.length; i++) {
     push();
-    fill(0, 255, 0, 127);
+    fill(0, 255, 0, 127); //making the color green and transparent
     noStroke();
     translate(i * (barWidth) , heighty-map(sleepQuality[i], sleepQualityMin, sleepQualityMax, 10, 600)); // jump to the top right corner of the bar
     rect(0, 0, barWidth, map(sleepQuality[i], sleepQualityMin, sleepQualityMax, 10, 600)); // draw rect
@@ -193,7 +199,7 @@ for(var i = 0; i < sleepLength.length; i++) {
   }
 
 
-//
+//This was to make the average lines of sleep length and sleep quality. Gold is for sleep quality, while white is for sleep length
 strokeWeight(4);
 stroke(255, 204, 0);
   var sQtotal = 0;
@@ -203,6 +209,8 @@ stroke(255, 204, 0);
   var sQavg = sQtotal / sleepQuality.length;
   console.log(sQavg);
   line(0, heighty-map(sQavg, sleepQualityMin, sleepQualityMax, 10, 600), widthy, heighty-map(sQavg, sleepQualityMin, sleepQualityMax, 10, 600));
+
+
 console.log(map(sQavg, sleepQualityMin, sleepQualityMax, 10, 600));
 
 

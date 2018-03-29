@@ -36,6 +36,19 @@ function setup() {
   //making the background dark!
   background(100);
 
+   var config = {
+    apiKey: "AIzaSyD77zkj9acc-6iBwhN6ghzIZA5lB8-caGw",
+    authDomain: "artg2260.firebaseapp.com",
+    databaseURL: "https://artg2260.firebaseio.com",
+    projectId: "artg2260",
+    storageBucket: "",
+    messagingSenderId: "635060430209"
+  };
+  firebase.initializeApp(config);
+
+  var database = firebase.database();
+  var sleep = database.ref('sleep');
+
   // Add an event for when a file is dropped onto the canvas
   // this is a command provided by the p5.dom.js library. It's just a function to drop files into the program.
   // when something is dropped into the program, call the gotFile function.
@@ -210,7 +223,7 @@ stroke(255, 204, 0);
   console.log(sQavg);
   line(0, heighty-map(sQavg, sleepQualityMin, sleepQualityMax, 10, 600), widthy, heighty-map(sQavg, sleepQualityMin, sleepQualityMax, 10, 600));
 
-
+  
 console.log(map(sQavg, sleepQualityMin, sleepQualityMax, 10, 600));
 
 

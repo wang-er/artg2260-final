@@ -9,8 +9,8 @@ function setup() {
 
 createCanvas(100,100);
 background(0);
-  //initialInput = createInput("Name here");
-  fileUpload = createFileInput("INPUT");
+  initialInput = createInput("Name here");
+  //fileUpload = createFileInput("INPUT");
 submitButton = createButton('submit');
 submitButton.mousePressed(submitScore);
   //fileUpload = document.getElementById('csv file');
@@ -27,13 +27,13 @@ submitButton.mousePressed(submitScore);
   // firebase.initializeApp(config);
   // console.log(firebase);
 
-  // database = firebase.database();
+  database = firebase.database();
 
 
 function submitScore() {
   var data = {
-    name: user.uid,
-    sleepdata: fileUpload.value()
+    name: user.uid, //fix this
+    sleepdata: initialInput.value()
   }
 
     var ref = database.ref('sleepdata');

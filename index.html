@@ -1,44 +1,40 @@
+<!DOCTYPE html>
 <html>
-  <head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.16/p5.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/addons/p5.dom.js"></script>
+<head>
+  <meta charset=utf-8 />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email/Password Authentication Example</title>
+
+  <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+
+  <!-- Import and configure the Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/4.12.0/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/4.12.0/firebase-database.js"></script>
-<script src="https://www.gstatic.com/firebasejs/4.12.0/firebase-firestore.js"></script>
-<script src="https://www.gstatic.com/firebasejs/4.12.0/firebase-messaging.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase-messaging.js"></script>
 
-    <script src="sketch.js"></script>
-        <style> body {padding: 2em; margin: 0;} canvas {vertical-align: top;} </style>
-  </head>
-  <body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.0/moment.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.0/moment.min.js"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/addons/p5.dom.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/addons/p5.sound.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
 
-    <div>
-      <p> <i>Sleep App Data</i></p>
-      <p> Drag your csv data file from your Sleep Cycle app!</p>
-      <p> Blue/White represents the sleep length, while Green/Yellow represents the sleep quality. </p>
 
-    </div>
-
-    <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
-
-  <!-- Header section containing title -->
-  <header class="mdl-layout__header mdl-color-text--white mdl-color--light-blue-700">
-    <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-grid">
-      <div class="mdl-layout__header-row mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--8-col-desktop">
-        <a href="/"><h3>Firebase Authentication</h3></a>
-      </div>
-    </div>
-  </header>
+  <script src="auth.js"> </script>
+  <script src="sketch.js"> </script>
+</head>
+<body>
+<div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
 
   <main class="mdl-layout__content mdl-color--grey-100">
     <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-grid">
 
       <!-- Container for the demo -->
       <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
-        <div class="mdl-card__title mdl-color--light-blue-600 mdl-color-text--white">
-          <h2 class="mdl-card__title-text">Firebase Email &amp; Password Authentication</h2>
-        </div>
         <div class="mdl-card__supporting-text mdl-color-text--grey-600">
           <p>Enter an email and password below and either sign in to an existing account or sign up</p>
 
@@ -55,17 +51,18 @@
           <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-password-reset" name="verify-email">Send Password Reset Email</button>
 
           <!-- Container where we'll display the user details -->
-          <div class="quickstart-user-details-container">
+         <!--  <div class="quickstart-user-details-container">
             Firebase sign-in status: <span id="quickstart-sign-in-status">Unknown</span>
             <div>Firebase auth <code>currentUser</code> object value:</div>
             <pre><code id="quickstart-account-details">null</code></pre>
-          </div>
+          </div> -->
+          <div id="chartCanvas"><canvas id="myChart"></canvas></div>
+          <!-- <button id="addData">Add Data</button> -->
         </div>
       </div>
 
     </div>
-  
+  </main>
+</div>
 </body>
 </html>
-
-

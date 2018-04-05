@@ -1,0 +1,58 @@
+.background-color {
+  background-image: url(images/geometric-background.jpg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: #464646;
+}
+
+.content {
+  background: gray;
+  text-align: center;
+  padding-top: 60px;
+  padding-bottom: 100px;
+}
+
+.big-text {
+  font-size: 8vw;
+}
+
+.small-text {
+  font-size: 3vw;
+}
+
+.smaller-text {
+  font-size: 2vw;
+}
+
+.text-box{
+  background: rgba(255, 255, 255, 0.2);
+  padding: 5%;
+  margin: 10px 0px;
+  text-align: center;
+}
+
+.button-index {
+  background-color: black;
+  border: none;
+  color: white;
+  padding: 20px 30px;
+  width: 100%;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 8px;
+  margin: 10px auto ;
+  transition: background-color .5s;
+
+}
+.button-index:hover{
+  background-color: gold;
+}
+
+.image-border {
+  border: 5px solid gray;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}

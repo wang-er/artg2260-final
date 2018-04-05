@@ -196,7 +196,7 @@ function plotChart(){
 				responsive: true,
 				title: {
 					display: true,
-					text: "Don't lose your snooze!"
+					text: "Don't Lose Your Snooze!"
 				},
 				tooltips: {
 					mode: 'index',

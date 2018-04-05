@@ -279,7 +279,8 @@ function logoutUser(){
 function submitToFirebase(){
 	let day = document.getElementById('dateInput').value;
 	let val = parseInt(bevinput.value());
-	let length = parseInt(sleepLengthInput.value());
+	let length = sleepLengthInput.value().split(":");
+  length = parseFloat(length[0]) + parseFloat(length[1])/60;
 	let quality = parseInt(document.getElementById('sleepQualityInput').value);
 
 	var JSON = {};
@@ -293,7 +294,7 @@ function submitToFirebase(){
 	}
 
 	if (!isNaN(quality)) {
-		JSON.sleepQuality = quality;
+		JSON.sleepQuality = quality/10;
 	}
 
 	console.log(JSON);
@@ -309,7 +310,7 @@ function submitToFirebase(){
 if(day != ""){
   	firebase.database().ref('users/' + loggedInUser.uid + '/entries/' + day).update(JSON);
   } else {
-  	alert("wtf you gotta set yo dates");
+  	alert("Need to set a date!");
   }
 
 console.log(JSON);

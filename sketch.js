@@ -157,7 +157,7 @@ function plotChart(){
             	
                 label: "Sleep Quality",
                // backgroundColor: 'rgb(200, 99, 252)',
-                borderColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(200, 99, 252)',
                 data: sleepQualitydata,
             },
             {

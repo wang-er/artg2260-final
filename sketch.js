@@ -1,7 +1,9 @@
 let container, canv, input, dateInput, button; 
-let sleepQualityInput, sleepLengthInput, sleepLengthContainer;
+let sleepQualityInput, sleepLengthInput, sleepLengthContainer, bevinput;
 //var input; 
 //var img; 
+
+var allDayButton, sevenDayButton
 
 var data; //this variable is for the visitors. It stores the csv file data the user drags onto the website. 
 //However, this data is raw (like the data and categories are mushed into a single line basically) and needs to be separted properly! 
@@ -22,9 +24,21 @@ var sleepDate = [];
 let loggedInUser;
 
 function setup(){
+
 	container = createElement('div').id('container');
+
+			allDayButton = createButton("View all data").parent(container);
+		allDayButton.mousePressed(plotChart);
+		
+		sevenDayButton = createButton("View Data from last seven days").parent(container);
+		sevenDayButton.mousePressed(plotSeven);
+
+
+//someElement.appendChild(mybr);
+
+
 	//canv = createCanvas(600, 400).parent(container);
-	input = createInput('beverages').parent(container);
+	bevinput = createInput('beverages').parent(container);
 
 	//sleepQualityInput = createInput('sleep quality').parent(container);
 	sleepQualityInput = document.createElement("INPUT");
@@ -70,13 +84,17 @@ function setup(){
 
 
 
+	input = createFileInput(handleFile).parent(container);
    	
 
 	button = createButton('submit').parent(container);
 	button.mousePressed(submitToFirebase);
-	container.hide(); // don't show by default, wait until user signs in 
 
-	input = createFileInput(handleFile);
+
+	container.hide();
+	 // don't show by default, wait until user signs in 
+
+
 
 
 	//.parent(container);
@@ -88,6 +106,7 @@ function setup(){
 }
 
 function plotChart(){
+	console.log(loggedInUser);
   //background(200);
   let entries;
   var dates = [];
@@ -95,6 +114,7 @@ function plotChart(){
   var sleepQualitydata = []; 
   var bevs = []; 
   return firebase.database().ref('/users/' + loggedInUser.uid).once('value').then(
+
 
 
 
@@ -110,15 +130,15 @@ function plotChart(){
       sleepQualitydata.push(entry.sleepQuality);
       bevs.push(entry.bevs);
 
-           console.log(entries);
+          // console.log(entries);
 
 
     }
 
  
-        console.log(dates);
-        console.log(sleepQualitydata);
-        console.log(sleepLengthdata);
+        // console.log(dates);
+        // console.log(sleepQualitydata);
+        // console.log(sleepLengthdata);
     
     ///var timeFormat = 'MM/DD/YYYY HH:mm';
 //     var testData = snapshot.child("entries").val();
@@ -176,11 +196,27 @@ function plotChart(){
 				responsive: true,
 				title: {
 					display: true,
-					text: 'Chart.js Line Chart'
+					text: "Don't lose your snooze!"
 				},
 				tooltips: {
 					mode: 'index',
 					intersect: false,
+					callbacks: {
+                    title: function() {
+                            return '';
+                    },
+                    label: function(item, data) {
+                    var datasetLabel=data.datasets[item.datasetIndex].label||'';
+                    var dataPoint = item.yLabel;
+                    if(datasetLabel === "Sleep Quality"){
+                    	return datasetLabel + ': '+ dataPoint*10 + '%';
+                    }
+                    if(datasetLabel === "Sleep Length"){
+                    	return datasetLabel + ': '+ timeFormat(dataPoint);
+                    }
+                    
+                    }
+                }
 				},
 				hover: {
 					mode: 'nearest',
@@ -211,14 +247,18 @@ function plotChart(){
 			}
 		};
 
+
 document.getElementById('myChart').remove(); // this is my <canvas> element
 document.getElementById('chartCanvas').innerHTML = '<canvas id="myChart"></canvas>';
+
 
     var ctx = document.getElementById('myChart').getContext('2d');
     var chart = new Chart(ctx, config);
 
 
+
   } ); 
+
   console.log(entries);
 
 console.log(sleepLength);
@@ -238,7 +278,7 @@ function logoutUser(){
 
 function submitToFirebase(){
 	let day = document.getElementById('dateInput').value;
-	let val = parseInt(input.value());
+	let val = parseInt(bevinput.value());
 	let length = parseInt(sleepLengthInput.value());
 	let quality = parseInt(document.getElementById('sleepQualityInput').value);
 
@@ -262,16 +302,17 @@ function submitToFirebase(){
 
 
 	//let sleepdata = document.getElementById('sleepInput');//;.value;
-	input.value('');
+	bevinput.value('');
 	sleepLengthInput.value('');
 	//sleepQualityInput.value('');
 
 if(day != ""){
-  	firebase.database().ref('users/' + loggedInUser.uid + '/entries/' + day).set(JSON);
+  	firebase.database().ref('users/' + loggedInUser.uid + '/entries/' + day).update(JSON);
   } else {
-  	alert("Need to set a date!");
+  	alert("wtf you gotta set yo dates");
   }
 
+console.log(JSON);
     plotChart(); // after the user submits data, refresh the chart
 }
 
@@ -325,7 +366,7 @@ for (var i = 1; i < data.length - 1; i++) {
 //so for here, we're making another for loop to change each percentage-string-thing to a number!
 for(var i = 0; i < sleepQuality.length; i++) {
   //parseFloat() is a given javascript function that bascially ignores anything that isn't a number.
-  sleepQuality[i] = parseFloat(sleepQuality[i]);
+  sleepQuality[i] = parseFloat(sleepQuality[i])/10;
 }
 
 //so for here, we're making another for loop to change each percentage-string-thing to a number!
@@ -360,7 +401,7 @@ for(var i = 0; i < sleepLength.length; i++) {
   //so we would first need to make our strings to numbers by parseFloat again
 
   // then we can finally multiply it can convert hours to minutes
-  sleepLength[i] = parseFloat(sleepLength[i][0]) * 60 + parseFloat(sleepLength[i][1]);
+  sleepLength[i] = parseFloat(sleepLength[i][0]) + parseFloat(sleepLength[i][1])/60;
 
 }
 
@@ -377,6 +418,172 @@ plotChart();
 
 
 
+}
+
+
+function plotSeven(){
+  //background(200);
+  let entries;
+  var dates = [];
+  var sleepLengthdata = [];
+  var sleepQualitydata = []; 
+  var bevs = []; 
+  return firebase.database().ref('/users/' + loggedInUser.uid).once('value').then(
+
+
+
+  	function(snapshot) {
+    entries = snapshot.val().entries;
+    let keys = Object.keys(entries);
+    for (let i = keys.length-7; i < keys.length; i++) {
+      let key = keys[i];
+      let entry = entries[key];
+
+      dates.push(key);
+      sleepLengthdata.push(entry.sleepLength);
+      sleepQualitydata.push(entry.sleepQuality);
+      bevs.push(entry.bevs);
+
+          // console.log(entries);
+
+
+    }
+
+ 
+        // console.log(dates);
+        // console.log(sleepQualitydata);
+        // console.log(sleepLengthdata);
+    
+    ///var timeFormat = 'MM/DD/YYYY HH:mm';
+//     var testData = snapshot.child("entries").val();
+//     console.log(testData);
+
+// var testData2 = [];
+//     console.log(testData);
+
+//    for(i = 0; i < snapshot.numChildren(); i++) {
+//    	testData2 = entries.get[i];
+   //}
+
+
+		// function newDateString(days) {
+		// 	return moment().add(days, 'd').format(timeFormat);
+		// }
+		//var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+		var config = {
+			        type: 'line',
+
+        // The data for our dataset
+        data: {
+            labels: dates,
+            datasets: [
+
+            {
+                label: "Sleep Length",
+                //backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: sleepLengthdata,
+            }, 
+
+            {
+            	
+                label: "Sleep Quality",
+               // backgroundColor: 'rgb(200, 99, 252)',
+                borderColor: 'rgb(200, 99, 252)',
+                data: sleepQualitydata,
+            },
+            {
+            	
+                label: "Beverages",
+                //backgroundColor: 'rgb(99, 99, 99)',
+                borderColor: 'rgb(99, 99, 199)',
+                data: bevs,
+            }
+
+
+
+            ]
+        },
+			options: {
+				responsive: true,
+				title: {
+					display: true,
+					text: '7 days of snoozing'
+				},
+				tooltips: {
+					mode: 'index',
+					intersect: false,
+					callbacks: {
+                    title: function() {
+                            return '';
+                    },
+                    label: function(item, data) {
+                    var datasetLabel=data.datasets[item.datasetIndex].label||'';
+                    var dataPoint = item.yLabel;
+                    if(datasetLabel === "Sleep Quality"){
+                    	return datasetLabel + ': '+ dataPoint*10 + '%';
+                    }
+                    if(datasetLabel === "Sleep Length"){
+                    	return datasetLabel + ': '+ timeFormat(dataPoint);
+                    }
+                    
+                    }
+                },
+
+				},
+				hover: {
+					mode: 'nearest',
+					intersect: true
+				},
+				scales: {
+					xAxes: [{
+						type: 'time',
+					time: {
+                    	displayFormats: {
+                        day: 'YYYY-MM-DD'
+                    }
+                },
+						display: true,
+						scaleLabel: {
+							display: true,
+							labelString: 'Month'
+						}
+					}],
+					yAxes: [{
+						display: true,
+						scaleLabel: {
+							display: true,
+							labelString: 'Value'
+						}
+					}]
+				}
+			}
+		};
+
+document.getElementById('chartCanvas').innerHTML = '<canvas id="myChart"></canvas>';
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, config);
+
+
+
+  } ); 
+  console.log(entries);
+
+console.log(sleepLength);
+
+}
+
+function timeFormat(dataPoint){
+	var value;
+	if((Math.round((dataPoint - Math.floor(dataPoint))*60)) < 10) {
+		value = "0" + (Math.round((dataPoint - Math.floor(dataPoint))*60));
+	} else {
+		value = (Math.round((dataPoint - Math.floor(dataPoint))*60));
+	}
+	return Math.floor(dataPoint) + ":" + value;
+	
 }
 
 //console.log(sleepLength);

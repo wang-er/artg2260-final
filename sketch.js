@@ -27,10 +27,10 @@ function setup(){
 
 	container = createElement('div').id('container');
 
-			allDayButton = createButton("View all data").parent(container);
+			allDayButton = createButton("All Data").parent(container);
 		allDayButton.mousePressed(plotChart);
 		
-		sevenDayButton = createButton("View Data from last seven days").parent(container);
+		sevenDayButton = createButton("Last Seven Days").parent(container);
 		sevenDayButton.mousePressed(plotSeven);
 
 
@@ -38,7 +38,7 @@ function setup(){
 
 
 	//canv = createCanvas(600, 400).parent(container);
-	bevinput = createInput('beverages').parent(container);
+	bevinput = createInput('Beverages').parent(container);
 
 	//sleepQualityInput = createInput('sleep quality').parent(container);
 	sleepQualityInput = document.createElement("INPUT");
@@ -66,7 +66,7 @@ function setup(){
  //    document.getElementById('container').appendChild(sleepLengthInput);
 
 
-	sleepLengthInput = createInput('sleep length').parent(container);
+	sleepLengthInput = createInput('Sleep Length').parent(container);
 
 
 
@@ -196,7 +196,7 @@ function plotChart(){
 				responsive: true,
 				title: {
 					display: true,
-					text: "Don't lose your snooze!"
+					text: "Don't Lose Your snooze!"
 				},
 				tooltips: {
 					mode: 'index',

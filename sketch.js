@@ -27,7 +27,7 @@ function setup(){
 
 	container = createElement('div').id('container');
 
-			allDayButton = createButton("All Data").parent(container);
+		allDayButton = createButton("All Data").parent(container);
 		allDayButton.mousePressed(plotChart);
 		
 		sevenDayButton = createButton("Last Seven Days").parent(container);
@@ -87,7 +87,7 @@ function setup(){
 	input = createFileInput(handleFile).parent(container);
    	
 
-	button = createButton('submit').parent(container);
+	button = createButton('Submit').parent(container);
 	button.mousePressed(submitToFirebase);
 
 
@@ -169,7 +169,7 @@ function plotChart(){
             {
                 label: "Sleep Length",
                 //backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(66, 134, 244)',
                 data: sleepLengthdata,
             }, 
 
@@ -177,14 +177,14 @@ function plotChart(){
             	
                 label: "Sleep Quality",
                // backgroundColor: 'rgb(200, 99, 252)',
-                borderColor: 'rgb(200, 99, 252)',
+                borderColor: 'rgb(188, 126, 247)',
                 data: sleepQualitydata,
             },
             {
             	
                 label: "Beverages",
                 //backgroundColor: 'rgb(99, 99, 99)',
-                borderColor: 'rgb(99, 99, 199)',
+                borderColor: 'rgb(252, 251, 186)',
                 data: bevs,
             }
 
@@ -196,7 +196,7 @@ function plotChart(){
 				responsive: true,
 				title: {
 					display: true,
-					text: "Don't Lose Your snooze!"
+					text: "Don't Lose Your Snooze!"
 				},
 				tooltips: {
 					mode: 'index',

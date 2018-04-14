@@ -147,9 +147,21 @@ body.fixed-nav {
   text-overflow: ellipsis;
 }
 
+#mainNav .mdl-button {
+  background-color: #363c42;
+  font-size: 12px;
+  color: white;
+  border: none;
+  padding: 15px;
+}
+
+#mainNav .mdl-textfield__input {
+  font-size: 12px;
+}
+
 @media (min-width: 992px) {
   #mainNav .navbar-brand {
-    width: 250px;
+    width: 218px;
   }
   #mainNav .navbar-collapse {
     overflow: visible;

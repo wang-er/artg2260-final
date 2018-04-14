@@ -255,6 +255,8 @@ document.getElementById('chartCanvas').innerHTML = '<canvas id="myChart"></canva
     var ctx = document.getElementById('myChart').getContext('2d');
     var chart = new Chart(ctx, config);
 
+    console.log(ctx);
+
 
 
   } ); 
@@ -268,7 +270,7 @@ console.log(sleepLength);
 function loginUser(){
 	loggedInUser = firebase.auth().currentUser;
 	container.show();
-	
+	console.log("plot chart")
 	plotChart();
 }
 

@@ -8,23 +8,60 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <title>Final Project - Sleep App</title>
-  <!-- Bootstrap core CSS-->
+   <!-- Bootstrap core CSS-->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <!-- Custom fonts for this template-->
   <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <!-- Page level plugin CSS-->
   <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
   <!-- Custom styles for this template-->
-  <link href="css/sb-admin.css" rel="stylesheet">
+  <link href="css/sb-admin.css" rel="stylesheet">    
+
+  <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+
+  <!-- Import and configure the Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase-messaging.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.0/moment.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.0/moment.min.js"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/addons/p5.dom.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/addons/p5.sound.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+
+
+  <script src="auth.js"> </script>
+  <script src="sketch.js"> </script>
 </head>
+
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
   <!-- Navigation-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
     <a class="navbar-brand" href="index.html">Snooze Helper</a>
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+    <!--<p class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"><font face="helvetica" color="#2e2e2e">Enter an email and password below and either sign in to an existing account or sign up.</font></p>-->
+
+          <input class="mdl-textfield__input" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email"/>
+          &nbsp;&nbsp;&nbsp;
+          <input class="mdl-textfield__input" style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password"/>
+          <br/><br/>
+          <button disabled class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-in" name="signin">Sign In</button>
+          &nbsp;&nbsp;&nbsp;
+          <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-up" name="signup">Sign Up</button>
+          &nbsp;&nbsp;&nbsp;
+          <button class="mdl-button mdl-js-button mdl-button--raised" disabled id="quickstart-verify-email" name="verify-email">Send Email Verification</button>
+          &nbsp;&nbsp;&nbsp;
+          <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-password-reset" name="verify-email">Send Password Reset Email</button>
+
+    <!--button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
-    </button>
+    </button-->
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
@@ -40,6 +77,9 @@
           </a>
           <ul class="sidenav-second-level collapse" id="collapseExamplePages">
             <li>
+              <a href="index.html">About Page</a>
+            </li>
+            <li>
               <a href="login.html">Login Page</a>
             </li>
             <li>
@@ -54,7 +94,7 @@
           </ul>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-          <a class="nav-link" href="charts.html">
+          <a class="nav-link" href="graph.html">
             <i class="fa fa-fw fa-area-chart"></i>
             <span class="nav-link-text">Charts</span> 
             <!--Add the sleep chart with buttons and data entry possibilities to the charts page as well-->
@@ -74,18 +114,19 @@
           </a>
         </li>
       </ul>
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item dropdown">
+      <!--ul class="navbar-nav ml-auto"-->
+        <!--li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-fw fa-envelope"></i>
-            <span class="d-lg-none">Sleep Time
+            <i class="fa fa-fw fa-envelope"></i-->
+            <!--span class="d-lg-none">Sleep Time
               <span class="badge badge-pill badge-primary">Average</span>
-            </span>
-            <span class="indicator text-primary d-none d-lg-block">
+            </span-->
+            <!--span class="indicator text-primary d-none d-lg-block">
               <i class="fa fa-fw fa-circle"></i>
             </span>
-          </a>
-          <div class="dropdown-menu" aria-labelledby="messagesDropdown">
+          </a-->
+          <!--Commented out the alerts button & drop down menu items-->
+          <!--<div class="dropdown-menu" aria-labelledby="messagesDropdown">
             <h6 class="dropdown-header">New Messages:</h6>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#">
@@ -150,8 +191,8 @@
             </a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item small" href="#">View all alerts</a>
-          </div>
-        </li>
+          </div-->
+        <!--/li>
         <li class="nav-item">
           <form class="form-inline my-2 my-lg-0 mr-lg-2">
             <div class="input-group">
@@ -169,7 +210,7 @@
             <i class="fa fa-fw fa-sign-out"></i>Logout</a>
         </li>
       </ul>
-    </div>
+    </div-->
   </nav>
   <div class="content-wrapper">
     <div class="container-fluid">
@@ -253,8 +294,8 @@
       <div class="card mb-3">
         <div class="card-header">
           <i class="fa fa-area-chart"></i> Don't Lose Your Snooze!</div>
-        <div class="card-body">
-          <canvas id="myAreaChart" width="100%" height="30"></canvas>
+        <div id="chartCanvas">
+          <canvas id="myChart" width="100%" height="30"></canvas>
         </div>
         <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
       </div>

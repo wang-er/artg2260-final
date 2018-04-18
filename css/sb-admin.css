@@ -445,6 +445,15 @@ body.sidenav-toggled .navbar-sidenav-tooltip.show {
   transform: rotate(15deg);
 }
 
+.togglebutton {
+  position: absolute;
+  background-color: #4CAF50;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+}
+
 @media (min-width: 576px) {
   .card-columns {
     column-count: 1;

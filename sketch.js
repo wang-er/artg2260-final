@@ -1,6 +1,7 @@
 let container, canv, input, dateInput, button; 
 let sleepQualityInput, sleepLengthInput, sleepLengthContainer, bevinput;
-//var input; 
+var newTopic; 
+var newInput;
 //var img; 
 
 var allDayButton, sevenDayButton
@@ -25,13 +26,16 @@ let loggedInUser;
 
 function setup(){
 
-	container = createElement('div').id('container');
+	container = document.getElementById('container');
 
 		allDayButton = createButton("All Data").parent(container);
 		allDayButton.mousePressed(plotChart);
+    allDayButton.addClass("btn-primary");
+    //allDayButton.className = "btn";
 		
 		sevenDayButton = createButton("Last Seven Days").parent(container);
 		sevenDayButton.mousePressed(plotSeven);
+    sevenDayButton.addClass("btn-info");
 
 
 //someElement.appendChild(mybr);
@@ -47,6 +51,8 @@ function setup(){
 	sleepQualityInput.setAttribute("max", 100);
 	sleepQualityInput.setAttribute("id", 'sleepQualityInput');
 	document.getElementById('container').appendChild(sleepQualityInput);
+
+
 
 
 
@@ -67,6 +73,10 @@ function setup(){
 
 
 	sleepLengthInput = createInput('Sleep Length').parent(container);
+
+
+  newTopic = createInput('Insert a new topic').parent(container);
+  newInput = createInput('Put data for new topic here').parent(container);
 
 
 
@@ -91,7 +101,9 @@ function setup(){
 	button.mousePressed(submitToFirebase);
 
 
-	container.hide();
+
+
+	//container.hide();
 	 // don't show by default, wait until user signs in 
 
 
@@ -186,7 +198,8 @@ function plotChart(){
                 //backgroundColor: 'rgb(99, 99, 99)',
                 borderColor: 'rgb(252, 251, 186)',
                 data: bevs,
-            }
+            },
+
 
 
 
@@ -269,7 +282,7 @@ console.log(sleepLength);
 
 function loginUser(){
 	loggedInUser = firebase.auth().currentUser;
-	container.show();
+	//container.show();
 	console.log("plot chart")
 	plotChart();
 }
@@ -285,6 +298,9 @@ function submitToFirebase(){
   length = parseFloat(length[0]) + parseFloat(length[1])/60;
 	let quality = parseInt(document.getElementById('sleepQualityInput').value);
 
+  let newTopicName = newTopic.value();
+  let newTopicData = newInput.value();
+
 	var JSON = {};
 
 	if (!isNaN(val)) {
@@ -298,6 +314,8 @@ function submitToFirebase(){
 	if (!isNaN(quality)) {
 		JSON.sleepQuality = quality/10;
 	}
+
+  JSON[newTopicName] = newTopicData;
 
 	console.log(JSON);
 

@@ -1,13 +1,18 @@
-# p5-firebase-auth
-Basic functionality for creating a Firebase app with authentication and a p5 front-end 
+# Snooze Helper
+by Erin Wang, Shannon Hanlon, Jacob Krawczyk, Jaida Mercurio
 
+This little app allows the user to input their own data from their sleep, and they get to see what aspects and what things are potentially influencing their sleep quality.
+
+Credit goes towards:
+Nathan Melenbrink for setting up Firebase login side
 Bits and pieces taken from Google demo code and Daniel Shiffman's Firebase tutorial
-
-In order to run the demo: 
-
-1. Replace API key and database URL with your own
-2. Make sure you have read/write permissions enabled
+Chart.js 
+p5.js
 
 
 https://wang-er.github.io/artg2260-final/
+
+
+
+
 

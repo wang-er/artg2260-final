@@ -1,55 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <title>ARTG2260 Final</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>Final Project - Sleep App</title>
+   <!-- Bootstrap core CSS-->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom fonts for this template-->
+  <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <!-- Page level plugin CSS-->
+  <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+  <!-- Custom styles for this template-->
+  <link href="css/sb-admin.css" rel="stylesheet">    
+
+  <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+
+  <!-- Import and configure the Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase-messaging.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.0/moment.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.0/moment.min.js"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/addons/p5.dom.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/addons/p5.sound.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+
+
+  <script src="auth.js"> </script>
+  <script src="sketch.js"> </script>
 </head>
 
-<body class="background-color">
 
-  <div class="container-fluid">
-    <div class="col-md-12">
-      <div class= "text-box">
-        <p class="big-text">RE(M)fund</p> 
-        <p class="small-text">by Erin Wang, Shannon Hanlon, Jacob Krawczyk, Jaida Mercurio</p>
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+  <!-- Navigation-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+    <a class="navbar-brand" href="index.html">Snooze Helper</a>
+
+          <input class="mdl-textfield__input" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email"/>
+          &nbsp;&nbsp;&nbsp;
+          <input class="mdl-textfield__input" style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password"/>
+          <br/><br/>
+          <button disabled class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-in" name="signin">Sign In</button>
+          &nbsp;&nbsp;&nbsp;
+          <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-up" name="signup">Sign Up</button>
+          &nbsp;&nbsp;&nbsp;
+          <button class="mdl-button mdl-js-button mdl-button--raised" disabled id="quickstart-verify-email" name="verify-email">Send Email Verification</button>
+          &nbsp;&nbsp;&nbsp;
+          <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-password-reset" name="verify-email">Send Password Reset Email</button>
+
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+          <a class="nav-link" href="index.html">
+            <i class="fa fa-fw fa-dashboard"></i>
+            <span class="nav-link-text">Dashboard</span>
+          </a>
+        </li>
+       <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
+          <a class="nav-link" href='/about.html'>
+            <i class="fa fa-fw fa-file"></i>
+            <span class="nav-link-text">About</span>
+          </a>
+        </li>
+        <!-- <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+          <a class="nav-link" href="chartpage.html">
+            <i class="fa fa-fw fa-area-chart"></i>
+            <span class="nav-link-text">Charts</span> 
+          </a>
+        </li> -->
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
+          <a class="nav-link" href="#">
+            <i class="fa fa-fw fa-link"></i>
+            <span class="nav-link-text">Link</span>
+          </a>
+        </li>
+      </ul>
+      <ul class="navbar-nav sidenav-toggler">
+        <li class="nav-item">
+          <a class="nav-link text-center" id="sidenavToggler">
+            <i class="fa fa-fw fa-angle-left"></i>
+          </a>
+        </li>
+      </ul>
+  </nav>
+  <div class="content-wrapper">
+    <div class="container-fluid">
+      <!-- Breadcrumbs-->
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">My Dashboard</li>
+      </ol>
+      <!-- Icon Cards-->
+<!--       <div class="row">
+        <div class="col-xl-6 col-sm-6 mb-3">
+          <div class="card text-white bg-primary o-hidden h-100">
+            <div class="card-body">
+              <div class="card-body-icon">
+                <i class="fa fa-fw fa-comments"></i>
+              </div>
+              <div class="mr-5">Average Sleep Length</div>
+            </div>
+            <a class="card-footer text-white clearfix small z-1" href="#">
+              <span class="float-left">View Details</span>
+              <span class="float-right">
+                <i class="fa fa-angle-right"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+        <div class="col-xl-6 col-sm-6 mb-3">
+          <div class="card text-white bg-warning o-hidden h-100">
+            <div class="card-body">
+              <div class="card-body-icon">
+                <i class="fa fa-fw fa-list"></i>
+              </div>
+              <div class="mr-5">Average Sleep Quality</div>
+            </div>
+            <a class="card-footer text-white clearfix small z-1" href="#">
+              <span class="float-left">Viewz Details</span>
+              <span class="float-right">
+                <i class="fa fa-angle-right"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div> -->
+     
+      <!-- Large Sleep Chart. Add/link the sleep chart here!-->
+      <div class="card mb-3">
+        <div class="card-header">
+          <i class="fa fa-area-chart"></i> Don't Lose Your Snooze! <span id='needLogin'>Sample Data -- Sign in to store and view your own! </span>
+        </div>
+        <div id="chartCanvas">
+          <canvas id="myChart" width="100%" height="30"></canvas>
+        </div>
+        <div id="buttons" style="text-align:right;"></div>
+          <!-- <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div> -->
+        </div>
+      
+
+      <div class="card mb-3">
+        <div class="card-header">
+          <i class="fa fa-area-chart"></i> Record Your Data
+        </div>
+        <div class="row">
+          <div class='col-sm-6' id='inputs'>
+            <p> Sleep Quality: 
+            <input type="number" min='0' max='100' id='sleepQualityInput' value="Submit"> 
+            Sleep Length: 
+            <input type="number" min='0' max='100' id='sleepLengthInput' value="Submit"> </p>
+            <p>  <input type="text" id='newTopic' value="New Field to Track:"> 
+            <input type="number" min='0' max='100' id='newInput' value="Submit"> </p>
+            <p id='dateInput'>Date: </p>
+          </div>
+
+          <div class='col-sm-6' >
+            <p id="container"> </p>
+
+            <p id='needLogin2'> Submit: Please Sign in! </p>
+          </div>
+        <div class="row">
+        <!-- <div id="container"></div> -->
+          <!-- <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div> -->
+        </div>
+      </div>
+
+    </div>
+
+    <footer class="sticky-footer">
+      <div class="container">
+        <div class="text-center">
+          <small>Copyright © Northeastern University 2018</small>
+        </div>
+      </div>
+    </footer>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fa fa-angle-up"></i>
+    </a>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">Select "Sign out" below if you are ready to end your current session.</div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            <a class="btn btn-primary" href="login.html">Logout</a>
+          </div>
+        </div>
       </div>
     </div>
-
-    <div class="col-md-12">
-      <div class= "text-box">
-        <p class="smaller-text">Using the <a href ="https://www.sleepcycle.com/">Sleep Cycle App</a>, you can insert all sorts of categories along with your sleep data! See what's influencing your sleep!</p>
-      </div>
-
-    </div>
-
-    <div class="row">
-    <!--<div class="col-lg-4">
-      <a href="index.html"> 
-        <button class="button-index">Home</button> 
-      </a>
-    </div> -->
-    <div class="col-lg-12">
-      <a href="dash.html"> 
-        <button class="button-index">Lead me to the chart!</button>
-      </a>
-    </div>
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Page level plugin JavaScript-->
+    <script src="vendor/chart.js/Chart.min.js"></script>
+    <script src="vendor/datatables/jquery.dataTables.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin.min.js"></script>
+    <!-- Custom scripts for this page-->
+    <script src="js/sb-admin-datatables.min.js"></script>
+    <script src="js/sb-admin-charts.min.js"></script>
   </div>
-<!--     <div class="col-lg-6">
-      <a href="assignments.html"> 
-        <button class="button-index">Assigments</button> 
-      </a>
-
-    </div> -->
-
-
-  </div>
-
-
 </body>
+
 </html>

@@ -7,6 +7,10 @@
   background-color: #464646;
 }
 
+#inputs{
+  padding-left: 35px;
+}
+
 .content {
   background: gray;
   text-align: center;

@@ -23,6 +23,10 @@ body.fixed-nav {
   padding-top: 56px;
 }
 
+.col-sm-6{
+  padding: 25px;
+}
+
 .content-wrapper {
   min-height: calc(100vh - 56px);
   padding-top: 1rem;
